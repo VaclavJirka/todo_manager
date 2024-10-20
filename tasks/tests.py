@@ -13,7 +13,7 @@ from tasks.models import Task
 class TaskListCreateTestCase(APITestCase):
     """This class defines the tests for the task list and create view."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Create a task object with the given data."""
         self.url = reverse("task-list-create")
         self.data = {
@@ -22,7 +22,7 @@ class TaskListCreateTestCase(APITestCase):
             "due_date": "2024-10-17",
         }
 
-    def test_create_task(self):
+    def test_create_task(self) -> None:
         """Test creating a task."""
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -32,7 +32,7 @@ class TaskListCreateTestCase(APITestCase):
         self.assertEqual(task.description, self.data["description"])
         self.assertEqual(str(task.due_date), self.data["due_date"])
 
-    def test_list_tasks(self):
+    def test_list_tasks(self) -> None:
         """Test listing tasks."""
         task = Task.objects.create(**self.data)
         response = self.client.get(self.url)
@@ -42,7 +42,7 @@ class TaskListCreateTestCase(APITestCase):
         self.assertEqual(response.data[0]["description"], task.description)
         self.assertEqual(response.data[0]["due_date"], str(task.due_date))
 
-    def test_upload_photo(self):
+    def test_upload_photo(self) -> None:
         """Test creating a task with uploading a photo."""
         with open("tasks/tests/photos/testing_photo.jpg", "rb") as photo:
             image_data = SimpleUploadedFile(
@@ -61,7 +61,7 @@ class TaskListCreateTestCase(APITestCase):
             self.assertLessEqual(image.height, 800)
             self.assertEqual(image.mode, "L")
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Delete the photo files after the tests."""
         tasks = Task.objects.all()
         for task in tasks:
@@ -77,7 +77,7 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
     This class defines the tests for retrieving, updating, and deleting tasks.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Create a task object with the given data."""
         self.task = Task.objects.create(
             title="Test task",
@@ -93,7 +93,7 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
             "due_date": "2024-10-18",
         }
 
-    def test_retrieve_task(self):
+    def test_retrieve_task(self) -> None:
         """Test retrieving a task."""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -101,7 +101,7 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
         self.assertEqual(response.data["description"], self.task.description)
         self.assertEqual(response.data["due_date"], str(self.task.due_date))
 
-    def test_update_task(self):
+    def test_update_task(self) -> None:
         """Test updating a task."""
         response = self.client.put(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -110,13 +110,13 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
         self.assertEqual(task.description, self.data["description"])
         self.assertEqual(str(task.due_date), self.data["due_date"])
 
-    def test_delete_task(self):
+    def test_delete_task(self) -> None:
         """Test deleting a task."""
         response = self.client.delete(self.url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Task.objects.count(), 0)
 
-    def test_update_photo(self):
+    def test_update_photo(self) -> None:
         """Test updating a task with uploading a photo."""
         with open("tasks/tests/photos/testing_photo.jpg", "rb") as photo:
             image_data = SimpleUploadedFile(
@@ -132,7 +132,7 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
             self.assertLessEqual(image.height, 800)
             self.assertEqual(image.mode, "L")
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Delete the photo files after the tests."""
         if self.task.photo:
             if default_storage.exists(self.task.photo.path):
@@ -142,11 +142,11 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
 class NearestDueDateTaskTestCase(APITestCase):
     """This class defines the tests for the nearest due date view."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Create the URL for the task with the nearest due date view."""
         self.url = reverse("task-nearest-due-date")
 
-    def test_nearest_due_date(self):
+    def test_nearest_due_date(self) -> None:
         """Test retrieving the task with the nearest due date."""
         task1 = Task.objects.create(
             title="Test task 1",

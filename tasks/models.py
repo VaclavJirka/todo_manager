@@ -14,11 +14,13 @@ class Task(models.Model):
         photo: The photo associated with the task.
     """
 
-    title = models.CharField(max_length=100)
-    description = models.TextField(blank=True, max_length=500)
-    due_date = models.DateField(blank=True, null=True)
-    photo = models.ImageField(blank=True, null=True, upload_to="images/")
+    title: str = models.CharField(max_length=100)
+    description: str = models.TextField(blank=True, max_length=500)
+    due_date: models.DateField = models.DateField(blank=True, null=True)
+    photo: models.ImageField = models.ImageField(
+        blank=True, null=True, upload_to="images/"
+    )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return the title of the task."""
         return self.title

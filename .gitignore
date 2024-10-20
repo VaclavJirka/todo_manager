@@ -1,4 +1,4 @@
-# Django #
+# Django
 *.log
 *.pot
 *.pyc
@@ -13,3 +13,7 @@ media
 .env 
 env/ 
 ENV/ 
+
+# mypy
+.mypy_cache/
+mypy.ini

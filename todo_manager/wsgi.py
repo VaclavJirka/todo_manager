@@ -8,9 +8,10 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 """
 
 import os
+from typing import Callable
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "todo_manager.settings")
 
-application = get_wsgi_application()
+application: Callable = get_wsgi_application()

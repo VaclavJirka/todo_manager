@@ -1,6 +1,9 @@
 """This module contains the views for the tasks app."""
 
+from typing import Optional
+
 from rest_framework import generics
+from rest_framework.serializers import BaseSerializer
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -13,7 +16,7 @@ class ListCreateTaskAPIView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: BaseSerializer) -> None:
         """
         Convert to maximum 800px width and height if needed.
         Convert it to black and white.
@@ -35,7 +38,7 @@ class RetrieveUpdateDestroyTaskAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     lookup_field = "id"
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer: BaseSerializer) -> None:
         """
         Convert to maximum 800px width and height if needed.
         Convert it to black and white.
@@ -50,7 +53,7 @@ class RetrieveUpdateDestroyTaskAPIView(generics.RetrieveUpdateDestroyAPIView):
         else:
             serializer.save()
 
-    def perform_destroy(self, instance):
+    def perform_destroy(self, instance: Task) -> None:
         """Delete the photo and the task object."""
         instance.photo.delete()
         instance.delete()
@@ -62,6 +65,6 @@ class NearestDueDateTaskAPIView(generics.RetrieveAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-    def get_object(self):
+    def get_object(self) -> Optional[Task]:
         """Return the task with the nearest due date."""
         return Task.objects.order_by("due_date").first()

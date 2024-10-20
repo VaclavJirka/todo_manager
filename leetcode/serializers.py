@@ -1,5 +1,7 @@
 """This module contains the serializers for the LeetCode app."""
 
+from typing import Any, Dict
+
 from rest_framework import serializers
 
 
@@ -20,7 +22,7 @@ class RotateArraySerializer(serializers.Serializer):
 
         fields = ["nums", "k"]
 
-    def validate(self, data):
+    def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Validate the input data.
 
@@ -53,7 +55,7 @@ class KthLargestSerializer(serializers.Serializer):
 
         fields = ["nums", "k"]
 
-    def validate(self, data):
+    def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Validate the input data."""
         errors = {}
         if data["k"] < 1:
@@ -84,7 +86,7 @@ class LongestIncreasingPathSerializer(serializers.Serializer):
 
         fields = ["matrix"]
 
-    def validate(self, data):
+    def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Validate the input data."""
         errors = {}
         if len(data["matrix"]) < 1:
