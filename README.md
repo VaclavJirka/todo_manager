@@ -9,6 +9,7 @@ Todo Manager is a Django-based application that allows users to manage their tas
 - Create and list tasks
 - Upload photos for tasks
 - Update and delete tasks
+- Get task with closest due date
 - Rotate array endpoint
 - K-th largest element endpoint
 - Longest increasing path endpoint
@@ -59,12 +60,13 @@ Once the server is running, you can access the application at `http://127.0.0.1:
 - **Retrieve Task**: `GET /api/tasks/<id>/`
 - **Update Task**: `PUT /api/tasks/<id>/`
 - **Delete Task**: `DELETE /api/tasks/<id>/`
+- **Nearest Due Task**: `GET /api/tasks/nearest-deadline/`
 
 ### Leetcode Endpoints
 
-- **Rotate Array**: `POST /api/leetcode/rotate_array/`
-- **K-th Largest Element**: `POST /api/leetcode/kth_largest/`
-- **Longest Increasing Path**: `POST /api/leetcode/longest_increasing_path/`
+- **Rotate Array**: `POST /api/leetcode/rotate-array/`
+- **K-th Largest Element**: `POST /api/leetcode/kth-largest/`
+- **Longest Increasing Path**: `POST /api/leetcode/longest-increasing-path/`
 
 ## Testing
 
