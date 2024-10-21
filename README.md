@@ -8,6 +8,7 @@ Todo Manager is a Django-based application that allows users to manage their tas
 
 - Create and list tasks
 - Upload photos for tasks
+- Update and delete tasks
 - Rotate array endpoint
 - K-th largest element endpoint
 - Longest increasing path endpoint
@@ -26,8 +27,8 @@ To get started with the Todo Manager, follow these steps:
 2. **Create a virtual environment**:
 
    ```sh
-   python3 -m venv venv
-   source venv/bin/activate
+   python3 -m venv env
+   source env/bin/activate
    ```
 
 3. **Install dependencies**:
@@ -55,12 +56,15 @@ Once the server is running, you can access the application at `http://127.0.0.1:
 
 - **Create Task**: `POST /api/tasks/`
 - **List Tasks**: `GET /api/tasks/`
+- **Retrieve Task**: `GET /api/tasks/<id>/`
+- **Update Task**: `PUT /api/tasks/<id>/`
+- **Delete Task**: `DELETE /api/tasks/<id>/`
 
-### Algorithm Endpoints
+### Leetcode Endpoints
 
-- **Rotate Array**: `POST /api/rotate_array/`
-- **K-th Largest Element**: `POST /api/kth_largest/`
-- **Longest Increasing Path**: `POST /api/longest_increasing_path/`
+- **Rotate Array**: `POST /api/leetcode/rotate_array/`
+- **K-th Largest Element**: `POST /api/leetcode/kth_largest/`
+- **Longest Increasing Path**: `POST /api/leetcode/longest_increasing_path/`
 
 ## Testing
 

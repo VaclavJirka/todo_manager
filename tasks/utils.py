@@ -62,7 +62,7 @@ def convert(image: InMemoryUploadedFile) -> ContentFile:
     Convert the image and return a ContentFile object.
 
     Args:
-        image (django.core.files.uploadedfile.InMemoryUploadedFile): Image file.
+        image (InMemoryUploadedFile): Image file.
 
     Returns:
         django.core.files.base.ContentFile: Content file.

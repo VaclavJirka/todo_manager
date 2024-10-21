@@ -18,7 +18,7 @@ class RotateArraySerializer(serializers.Serializer):
     k = serializers.IntegerField()
 
     class Meta:
-        """This class defines the metadata of the RotateArraySerializer class."""
+        """This class defines the metadata of the RotateArraySerializer."""
 
         fields = ["nums", "k"]
 
@@ -51,7 +51,7 @@ class KthLargestSerializer(serializers.Serializer):
     k = serializers.IntegerField()
 
     class Meta:
-        """This class defines the metadata of the KthLargestSerializer class."""
+        """This class defines the metadata of the KthLargestSerializer."""
 
         fields = ["nums", "k"]
 
@@ -71,7 +71,7 @@ class KthLargestSerializer(serializers.Serializer):
 
 class LongestIncreasingPathSerializer(serializers.Serializer):
     """
-    Serializer for finding the length of the longest increasing path in a matrix.
+    Serializer to find the length of the longest increasing path in a matrix.
 
     Fields:
         matrix: List of lists of integers
@@ -82,7 +82,7 @@ class LongestIncreasingPathSerializer(serializers.Serializer):
     )
 
     class Meta:
-        """This class defines the metadata of the LongestIncreasingPathSerializer class."""
+        """This class defines metadata of LongestIncreasingPathSerializer."""
 
         fields = ["matrix"]
 
@@ -91,7 +91,14 @@ class LongestIncreasingPathSerializer(serializers.Serializer):
         errors = {}
         if len(data["matrix"]) < 1:
             errors["matrix"] = "matrix must have at least one row."
-        if len(data["matrix"][0]) < 1:
+        len_row = len(data["matrix"][0])
+        for row in data["matrix"]:
+            if len(row) != len_row:
+                errors["matrix"] = (
+                    "matrix must have the same number of columns in each row."
+                )
+                break
+        if len_row < 1:
             errors["matrix"] = "matrix must have at least one column."
         if errors:
             raise serializers.ValidationError(errors)

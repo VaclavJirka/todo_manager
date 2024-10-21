@@ -21,14 +21,14 @@ class AlgorithmViewsTests(TestCase):
         data = {"nums": [1, 2, 3, 4, 5, 6, 7], "k": 3}
         response = self.client.post(self.rotate_array_url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [5, 6, 7, 1, 2, 3, 4])
+        self.assertEqual(response.data["result"], [5, 6, 7, 1, 2, 3, 4])
 
     def test_kth_largest(self) -> None:
         """Test the kth_largest view."""
         data = {"nums": [3, 2, 1, 5, 6, 4], "k": 2}
         response = self.client.post(self.kth_largest_url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, 5)
+        self.assertEqual(response.data["result"], 5)
 
     def test_longest_increasing_path(self) -> None:
         """Test the longest_increasing_path view."""
@@ -37,4 +37,16 @@ class AlgorithmViewsTests(TestCase):
             self.longest_increasing_path_url, data, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, 4)
+        self.assertEqual(response.data["result"], 4)
+
+    def test_inavlid_data(self) -> None:
+        """Test the views with invalid data."""
+        data = {"nums": [1, 2, 3, 4, 5, 6, 7]}
+        response = self.client.post(self.rotate_array_url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        response = self.client.post(self.kth_largest_url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        response = self.client.post(
+            self.longest_increasing_path_url, data, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

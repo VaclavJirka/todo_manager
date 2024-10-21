@@ -32,7 +32,7 @@ class ListCreateTaskAPIView(generics.ListCreateAPIView):
 
 
 class RetrieveUpdateDestroyTaskAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """This class defines the view for retrieving, updating, and deleting a task."""
+    """Defines view for retrieving, updating, and deleting a task."""
 
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -60,11 +60,15 @@ class RetrieveUpdateDestroyTaskAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class NearestDueDateTaskAPIView(generics.RetrieveAPIView):
-    """This class defines the view for retrieving the task with the nearest due date."""
+    """This class defines view for retrieving task with nearest due date."""
 
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
     def get_object(self) -> Optional[Task]:
         """Return the task with the nearest due date."""
-        return Task.objects.order_by("due_date").first()
+        return (
+            Task.objects.filter(due_date__isnull=False)
+            .order_by("due_date")
+            .first()
+        )

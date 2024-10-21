@@ -61,6 +61,20 @@ class TaskListCreateTestCase(APITestCase):
             self.assertLessEqual(image.height, 800)
             self.assertEqual(image.mode, "L")
 
+    def test_invalid_title(self) -> None:
+        """Test creating a task with an invalid title."""
+        self.data["title"] = "a" * 101
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Task.objects.count(), 0)
+
+    def test_invalid_description(self) -> None:
+        """Test creating a task with an invalid description."""
+        self.data["description"] = "a" * 501
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Task.objects.count(), 0)
+
     def tearDown(self) -> None:
         """Delete the photo files after the tests."""
         tasks = Task.objects.all()
@@ -131,6 +145,22 @@ class TaskRetrieveUpdateDestroyTestCase(APITestCase):
             self.assertLessEqual(image.width, 800)
             self.assertLessEqual(image.height, 800)
             self.assertEqual(image.mode, "L")
+
+    def test_invalid_title(self) -> None:
+        """Test updating a task with an invalid title."""
+        self.data["title"] = "a" * 101
+        response = self.client.put(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.task.refresh_from_db()
+        self.assertNotEqual(self.task.title, self.data["title"])
+
+    def test_invalid_description(self) -> None:
+        """Test updating a task with an invalid description."""
+        self.data["description"] = "a" * 501
+        response = self.client.put(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.task.refresh_from_db()
+        self.assertNotEqual(self.task.description, self.data["description"])
 
     def tearDown(self) -> None:
         """Delete the photo files after the tests."""
