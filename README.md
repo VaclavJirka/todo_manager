@@ -21,7 +21,7 @@ To get started with the Todo Manager, follow these steps:
 1. **Clone the repository**:
 
    ```sh
-   git clone https://github.com/yourusername/todo-manager.git
+   git clone https://github.com/VaclavJirka/todo_manager.git
    cd todo-manager
    ```
 
